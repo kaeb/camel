@@ -1,0 +1,65 @@
+@import (reference) "global.less";
+
+.camel-route-diagram-canvas {
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  position: absolute;
+  overflow: hidden;
+}
+
+.camel-diagram {
+
+  padding: @pf-padding;
+  background-color: white;
+  cursor: -webkit-grab;
+  cursor: -moz-grab;
+  cursor: grab;
+
+  &:active {
+    cursor: -webkit-grabbing;
+    cursor: -moz-grabbing;
+    cursor: grabbing;
+  }
+
+  .node > rect {
+    stroke: @color-pf-black-500;
+    stroke-width: 1px;
+    border-radius: 4px;
+    fill: @color-pf-black-100;
+  }
+
+  .node:hover {
+    cursor: pointer;
+  }
+
+  .node.selected > rect {
+    stroke: @color-pf-blue-300;
+    stroke-width: 2px;
+  }
+
+  .node.stopped > rect {
+    stroke: red;
+    stroke-width: 2px;
+  }
+
+  path.edge {
+    fill: none;
+    stroke: @color-pf-black-500;
+    stroke-width: 2px;
+  }
+
+  #arrowhead {
+    fill: @color-pf-black-500;
+  }
+
+  .edge:hover {
+    cursor: pointer;
+  }
+
+  text.inflight {
+    stroke: #08f;
+  }
+
+}

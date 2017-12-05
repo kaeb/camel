@@ -1,0 +1,77 @@
+<div class="row toolbar-pf">
+  <div class="col-sm-12">
+    <form class="toolbar-pf-actions">
+      <div class="form-group">
+        <button class="btn btn-default" 
+                ng-click="$ctrl.activateComponent()" 
+                ng-disabled="$ctrl.disableActivate()">
+          Activate
+        </button>
+        <button class="btn btn-default" 
+                ng-click="$ctrl.deactivateComponent()"
+                ng-disabled="$ctrl.disableDeactivate()">
+          Deactivate
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<h2>Details</h2>
+
+<div class="row">
+  <div class="col-md-12">
+    <dl class="dl-horizontal">
+      <dt>Id</dt>
+      <dd>{{$ctrl.component.id}}</dd>
+      <dt>Name</dt>
+      <dd>{{$ctrl.component.name}}</dd>
+      <dt>State</dt>
+      <dd>{{$ctrl.component.state}}</dd>
+    </dl>
+  </div>
+</div>
+
+<h2>Properties</h2>
+
+<div class="row">
+  <div class="col-md-12">
+    <dl class="dl-horizontal">
+      <dt ng-repeat-start="(key, value) in $ctrl.component.properties">{{key}}</dt>
+      <dd ng-repeat-end ng-repeat="v in value">{{v.Value}}</dd>
+    </dl>
+  </div>
+</div>
+
+<h2>References</h2>
+
+<div class="row">
+  <div class="col-md-12">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Availability</th>
+          <th>Cardinality</th>
+          <th>Policy</th>
+          <th>Bound Services</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="(key, value) in $ctrl.component.references">
+          <td>{{value.Name}}</td>
+          <td>{{value.Availability}}</td>
+          <td>{{value.Cardinality}}</td>
+          <td>{{value.Policy}}</td>
+          <td>
+            <ul class="list-unstyled">
+              <li ng-repeat="id in value['Bound Services']">
+                <i class="fa fa-cog text-info" id="bound.service.{{id}}"> {{id}}</i>
+              </li>
+            </ul>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

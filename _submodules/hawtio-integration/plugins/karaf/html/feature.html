@@ -1,0 +1,15 @@
+<div class="controller-section" ng-controller="Karaf.FeatureController">
+
+  <ol class="breadcrumb">
+    <li>
+      <a ng-href="osgi/features">Features</a>
+    </li>
+    <li class="page-title">
+      {{row.Id}}
+    </li>
+  </ol>
+
+  <div ng-include src="'plugins/karaf/html/feature-details.html'"></div>
+
+</div>
+

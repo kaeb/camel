@@ -1,0 +1,28 @@
+<p>
+  <div class="alert alert-warning">
+    <span class="pficon pficon-warning-triangle-o"></span>
+    This operation cannot be undone. Please be careful!
+  </div>
+</p>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="control-group">
+      <button type="submit" class="btn btn-warning" ng-click="$ctrl.deleteDialog = true">
+        Delete topic '{{$ctrl.selectedName()}}'
+      </button>
+      <label>Removes the topic completely.</label>
+    </div>
+  </div>
+</div>
+
+<div hawtio-confirm-dialog="$ctrl.deleteDialog"
+     title="Confirm delete topic"
+     ok-button-text="Delete"
+     cancel-button-text="Cancel"
+     on-ok="$ctrl.deleteDestination()">
+  <div class="dialog-body">
+    <p>You are about to delete the <b>{{$ctrl.selectedName()}}</b> topic.</p>
+    <p>This operation cannot be undone so please be careful.</p>
+  </div>
+</div>

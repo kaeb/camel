@@ -1,0 +1,15 @@
+<div class="controller-section" ng-if="!$ctrl.loading">
+
+  <ol class="breadcrumb">
+    <li>
+      <a ng-href="{{$ctrl.srcComponentsUrl}}">Declarative Services</a>
+    </li>
+    <li class="page-title">
+      {{$ctrl.component.name}}
+    </li>
+  </ol>
+
+  <div ng-include src="'plugins/karaf/html/scr-component-details.html'"></div>
+
+</div>
+<div class="spinner spinner-lg loading-page" ng-if="$ctrl.loading"></div>  

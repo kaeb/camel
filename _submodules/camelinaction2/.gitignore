@@ -1,0 +1,10 @@
+target
+activemq-data
+chapter1/file-copy/data/outbox/
+.idea
+*.i??
+.classpath
+.project
+.settings
+.vertx
+.metadata

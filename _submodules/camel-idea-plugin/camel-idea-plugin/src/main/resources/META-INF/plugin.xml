@@ -1,0 +1,161 @@
+<idea-plugin url="https://github.com/camel-idea-plugin/camel-idea-plugin">
+  <id>org.apache.camel</id>
+  <name>Apache Camel IDEA Plugin</name>
+  <version>0.5.0</version>
+  <vendor email="users@apache.camel.org" url="http://camel.apache.org">Apache Camel</vendor>
+
+  <description><![CDATA[
+      Plugin for Intellij IDEA to provide a set of small Apache Camel related capabilities to the code editor.
+
+      The plugin includes:
+      <ul>
+        <li>Code completion for Camel endpoints in Java, XML, properties or yaml files (ctrl + space)</li>
+        <li>Code completion for Camel property placeholders (cursor after {{)</li>
+        <li>Endpoint options filtered to only include applicable options when used as consumer vs producer only mode</li>
+        <li>Quick navigation to other Camel routes routing to this route by clicking the Camel icon in the gutter</li>
+        <li>Intention to add new Camel endpoint (alt + enter in empty string)</li>
+        <li>Quick documentation for Camel endpoints and external link to Camel component opening in web browser (ctrl + j and shift-F1)</li>
+        <li>Show endpoint information in tooltip when hovering mouse over from/to etc in Java route builders</li>
+        <li>Supports 3rd party Camel components (if they have been properly built with Camel JSon schema metadata)</li>
+        <li>Attempts to use same version as camel-core dependency from the loaded project (may require download over internet)</li>
+        <li>Real time validation for Camel endpoints in Java, XML (underline errors in red)</li>
+        <li>Real time validation for Camel simple language in Java, XML (underline errors in red)</li>
+        <li>Inspection (analyze code) to validate Camel endpoints and Simple language in Java and XML</li>
+        <li>Preference page to customize property ignore list from property completion</li>
+        <li>Preference page to exclude property/yml files from property completion</li>
+        <li>Supports Maven, Gradle, and SBT based projects</li>
+        <li>Support for Groovy, Scala and Kotlin has been deprecated and is expected to be removed in a future release.</li>
+      </ul>
+    ]]></description>
+
+  <change-notes><![CDATA[
+      v0.5.0
+      <ul>
+        <li>Work in progress</li>
+        <li>Remove support for Groovy, Scala and Kotlin</li>
+        <li>Various internal refactorings to cleanup the code</li>
+      </ul>
+      v0.4.7
+      <ul>
+        <li>Route navigator jumping to who calls me now supports constant fields in Java</li>
+        <li>Various internal refactorings to cleanup the code</li>
+        <li>Upgraded to IntelliJ 2017.2.6</li>
+      </ul>
+      v0.4.6
+      <ul>
+        <li>Fixed bug with apply button in plugin preferences</li>
+        <li>Rewrite of plugin preferences page</li>
+        <li>Upgraded to Apache Camel 2.20.1</li>
+      </ul>
+      v0.4.5
+      <ul>
+        <li>Fixed bug with loading 3rd party camel-catalog versions, such as 2.17.0.redhat-630187</li>
+        <li>Upgraded to IntelliJ 2017.2.5</li>
+        <li>Upgraded to Apache Camel 2.20.0</li>
+        <li>Refactor IdeaUtils to use extension point instead</li>
+      </ul>
+      v0.4.4
+      <ul>
+        <li>Important: We are dropping support for Groovy, Scala and Kotlin
+        which are now deprecated in 0.4.x and intended to be removed from 0.5.0 release.
+        <li>Upgraded to Apache Camel 2.19.3</li>
+      </ul>
+    ]]>
+  </change-notes>
+
+  <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
+  <idea-version since-build="162.0"/>
+
+  <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+       on how to target different products -->
+  <depends>com.intellij.modules.java</depends>
+  <depends>com.intellij.modules.xml</depends>
+
+  <!-- depend on the properties plugin -->
+  <depends>com.intellij.properties</depends>
+
+  <!-- depend on the yml plugin -->
+  <depends>org.jetbrains.plugins.yaml</depends>
+
+  <extensions defaultExtensionNs="org.apache.camel">
+    <IdeaUtilsSupport implementation="org.apache.camel.idea.service.extension.idea.JavaIdeaUtils" />
+    <IdeaUtilsSupport implementation="org.apache.camel.idea.service.extension.idea.XmlIdeaUtils" />
+    <IdeaUtilsSupport implementation="org.apache.camel.idea.service.extension.idea.PropertyIdeaUtils" />
+    <IdeaUtilsSupport implementation="org.apache.camel.idea.service.extension.idea.YamlIdeaUtils" />
+
+    <CamelIdeaUtilsSupport implementation="org.apache.camel.idea.service.extension.camel.JavaCamelIdeaUtils" />
+    <CamelIdeaUtilsSupport implementation="org.apache.camel.idea.service.extension.camel.XmlCamelIdeaUtils" />
+  </extensions>
+
+  <extensionPoints>
+    <extensionPoint name="IdeaUtilsSupport" interface="org.apache.camel.idea.extension.IdeaUtilsExtension" />
+  </extensionPoints>
+
+  <extensionPoints>
+    <extensionPoint name="CamelIdeaUtilsSupport" interface="org.apache.camel.idea.extension.CamelIdeaUtilsExtension" />
+  </extensionPoints>
+
+  <project-components>
+    <!-- Camel project component -->
+    <component>
+      <implementation-class>org.apache.camel.idea.CamelProjectComponent</implementation-class>
+    </component>
+  </project-components>
+
+  <extensions defaultExtensionNs="com.intellij">
+
+    <!-- services which can be requested from IDEA api -->
+    <projectService serviceImplementation="org.apache.camel.idea.service.CamelCatalogService"/>
+    <projectService serviceImplementation="org.apache.camel.idea.service.CamelService"/>
+    <applicationService serviceImplementation="org.apache.camel.idea.util.IdeaUtils"/>
+    <applicationService serviceImplementation="org.apache.camel.idea.util.CamelIdeaUtils"/>
+    <applicationService serviceImplementation="org.apache.camel.idea.service.CamelPreferenceService"/>
+
+    <!-- allow code completion of Camel endpoints-->
+    <completion.contributor language="JAVA" implementationClass="org.apache.camel.idea.completion.contributor.CamelJavaReferenceContributor"/>
+    <completion.contributor language="XML" implementationClass="org.apache.camel.idea.completion.contributor.CamelXmlReferenceContributor"/>
+    <completion.contributor language="any" implementationClass="org.apache.camel.idea.completion.contributor.CamelPropertiesOrYamlFileReferenceContributor"/>
+
+    <!-- puts the Camel icon in the gutter for each line that starts a Camel route -->
+    <codeInsight.lineMarkerProvider language="JAVA" implementationClass="org.apache.camel.idea.gutter.CamelRouteLineMarkerProvider"/>
+    <codeInsight.lineMarkerProvider language="XML" implementationClass="org.apache.camel.idea.gutter.CamelRouteLineMarkerProvider"/>
+
+    <!-- code completion of Camel property placeholders, eg {{foo}} style -->
+    <completion.contributor language="any" implementationClass="org.apache.camel.idea.completion.contributor.CamelPropertyPlaceholderReferenceContributor"/>
+
+    <!-- quick documentation for Camel endpoints -->
+    <lang.documentationProvider language="JAVA" implementationClass="org.apache.camel.idea.documentation.CamelDocumentationProvider"
+                                order="first"/>
+    <lang.documentationProvider language="XML" implementationClass="org.apache.camel.idea.documentation.CamelDocumentationProvider"
+                                order="first"/>
+    <lang.documentationProvider language="Properties" implementationClass="org.apache.camel.idea.documentation.CamelDocumentationProvider"
+                                order="first"/>
+    <lang.documentationProvider language="yaml" implementationClass="org.apache.camel.idea.documentation.CamelDocumentationProvider"
+                                order="first"/>
+
+    <!-- intention to add Camel endpoint -->
+    <intentionAction>
+      <className>org.apache.camel.idea.intention.CamelAddEndpointIntention</className>
+    </intentionAction>
+
+    <!-- annotator to validate endpoints -->
+    <annotator language="JAVA" implementationClass="org.apache.camel.idea.annotator.CamelEndpointAnnotator"/>
+    <annotator language="XML" implementationClass="org.apache.camel.idea.annotator.CamelEndpointAnnotator"/>
+    <annotator language="Properties" implementationClass="org.apache.camel.idea.annotator.CamelEndpointAnnotator"/>
+    <annotator language="yaml" implementationClass="org.apache.camel.idea.annotator.CamelEndpointAnnotator"/>
+
+    <!-- annotator to validate simple language -->
+    <annotator language="JAVA" implementationClass="org.apache.camel.idea.annotator.CamelSimpleAnnotator"/>
+    <annotator language="XML" implementationClass="org.apache.camel.idea.annotator.CamelSimpleAnnotator"/>
+
+    <!-- inspection to validate endpoints -->
+    <localInspection groupName="Apache Camel" implementationClass="org.apache.camel.idea.inspection.CamelInspection"/>
+
+    <!-- preference -->
+    <applicationConfigurable id="camel" groupId="language" displayName="Apache Camel" instance="org.apache.camel.idea.preference.CamelPreferenceEntryPage" />
+    <applicationConfigurable parentId="camel" id="camel.editor" groupId="language" displayName="Editor Settings" instance="org.apache.camel.idea.preference.editorsettings.CamelEditorSettingsPage"/>
+    <applicationConfigurable parentId="camel" id="camel.properties" groupId="language" displayName="Ignore &amp; Exclude Properties" instance="org.apache.camel.idea.preference.properties.CamelIgnoreAndExcludePage"/>
+
+  </extensions>
+
+</idea-plugin>

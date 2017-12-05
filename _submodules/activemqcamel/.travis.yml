@@ -1,0 +1,3 @@
+anguage: java
+script: mvn test
+jdk: oraclejdk8

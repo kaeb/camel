@@ -1,0 +1,32 @@
+// PatternFly
+@pf-less-path: "/patternfly/dist/less";
+@import (reference) "@{pf-less-path}/patternfly.less";
+@import (reference) "@{pf-less-path}/color-variables.less";
+
+// We may want to distribute Hawtio plugins LESS files
+@pf-padding: @grid-gutter-width / 2;
+
+.hawtio-btn-danger {
+  color: darkred;
+}
+
+.modal-header div[hawtio-pager] {
+  line-height: 1;
+}
+
+.camel-main-actions {
+  float: right;
+  margin: 20px 20px 10px 0;
+
+  .dropdown-menu {
+    min-width: 100%;
+  }
+}
+
+.breadcrumb > .page-title {
+  font-weight: 300;
+  font-size: 24px;
+  margin-top: 12px;
+  line-height: 1.1;
+  display: inline-block;
+}

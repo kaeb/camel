@@ -1,0 +1,145 @@
+<div ng-controller="Camel.BrowseEndpointController">
+
+  <div ng-class="{'wiki-fixed' : !isJmxTab}">
+
+    <h2>Browse</h2>
+
+    <div class="row toolbar-pf">
+      <div class="col-md-12">
+        <form class="toolbar-pf-actions search-pf">
+          <div class="form-group">
+            <button class="btn btn-default" ng-disabled="!gridOptions.selectedItems.length" ng-click="openForwardDialog()"
+                    hawtio-show object-name="{{workspace.selection.objectName}}" method-name="sendBodyAndHeaders"
+                    title="Forward the selected messages to another endpoint" data-placement="bottom">
+              Forward
+            </button>
+            <button class="btn btn-default" ng-click="refresh()" title="Refreshes the list of messages">
+              Refresh
+            </button>
+          </div>
+          <div class="toolbar-pf-action-right">
+            <div class="form-group has-clear">
+              <div class="search-pf-input-group">
+                <label for="search1" class="sr-only">Filter</label>
+                <input id="search1" type="search" class="form-control" ng-model="gridOptions.filterOptions.filterText"
+                      placeholder="Search">
+                <button type="button" class="clear" aria-hidden="true" ng-click="filterText = ''">
+                  <span class="pficon pficon-close"></span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <table class="table" hawtio-simple-table="gridOptions"></table>
+      </div>
+    </div>
+
+    <script type="text/ng-template" id="camelBrowseEndpointMessageDetails.html">
+      <div class="modal-header">
+        <button type="button" class="close" aria-label="Close" ng-click="$close()">
+          <span class="pficon pficon-close" aria-hidden="true"></span>
+        </button>
+        <div class="row">
+          <div class="col-md-4">
+            <h4 class="modal-title" id="myModalLabel">Message</h4>
+          </div>
+          <div class="col-md-7">
+            <div class=""
+                hawtio-pager="messages"
+                on-index-change="selectRowIndex"
+                row-index="rowIndex">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-body camel-forward-message">
+        <div class="row">
+          <div class="col-md-12">
+            <dl>
+              <dt>Forward to endpoint</dt>
+              <dd>
+                <form class="form-inline camel-forward-message" ng-submit="forwardMessage(row, endpointUri)">
+                  <input type="text" class="form-control camel-forward-message" ng-model="endpointUri" placeholder="URI"
+                          uib-typeahead="title for title in endpointUris() | filter:$viewValue" required>
+                  <button type="submit" class="btn btn-default" hawtio-show 
+                          object-name="{{workspace.selection.objectName}}" method-name="sendBodyAndHeaders"
+                          data-placement="bottom" title="Forward the selected messages to another endpoint">
+                    Forward
+                  </button>
+                </form>
+              </dd>
+            </dl>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <dl>
+              <dt>ID</dt>
+              <dd>{{row.id}}</dd>
+            </dl>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <dl>
+              <dt>Body</dt>
+              <dd><div hawtio-editor="row.body" read-only="true" mode="mode"></div></dd>
+            </dl>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <dl>
+              <dt>Headers</dt>
+              <dd>
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Type</th>
+                      <th>Value</th>
+                    </tr>
+                  </thead>
+                  <tbody compile="row.headerHtml"></tbody>
+                </table>
+              </dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+    </script>
+
+    <script type="text/ng-template" id="camelBrowseEndpointForwardMessage.html">
+      <form class="form-horizontal" ng-submit="forwardMessages(endpointUri); $close();">
+        <div class="modal-header">
+          <button type="button" class="close" aria-label="Close" ng-click="$close()">
+            <span class="pficon pficon-close" aria-hidden="true"></span>
+          </button>
+          <h4>
+            Forward to endpoint
+          </h4>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+              <label class="col-sm-1 control-label" for="endpointUri">URI</label>
+              <div class="col-sm-11">
+                <input type="text" id="endpointUri" class="form-control" ng-model="endpointUri" required
+                        uib-typeahead="title for title in endpointUris() | filter:$viewValue">
+              </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" ng-click="$close()">Close</button>
+          <button type="submit" class="btn btn-primary">Forward</button>
+        </div>
+      </form>
+    </script>
+
+  </div>
+
+</div>

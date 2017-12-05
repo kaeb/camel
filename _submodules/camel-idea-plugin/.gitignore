@@ -1,0 +1,12 @@
+out/**
+target
+*.iml
+*.ipr
+*.iws
+.idea
+.idea/**
+.DS_Store
+workspace/**
+/camel-idea-plugin.iml
+test-system/**
+buildingtools/build/**

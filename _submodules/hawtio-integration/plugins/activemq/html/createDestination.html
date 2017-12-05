@@ -1,0 +1,52 @@
+<p>
+  <div class="alert alert-info">
+    <span class="pficon pficon-info"></span>The JMS API does not define a standard
+    address syntax. Although a standard address syntax was considered, it was decided
+    that the differences in address semantics between existing message-oriented
+    middleware (MOM) products were too wide to bridge with a single syntax.
+  </div>
+</p>
+
+<form class="form-horizontal">
+
+  <div class="form-group">
+    <label class="col-sm-2 control-label" for="name-markup">{{$ctrl.destinationType}} name</label>
+
+    <div class="col-sm-10">
+      <input id="name-markup" class="form-control" type="text" maxlength="300"
+             name="destinationName" ng-model="$ctrl.destinationName" placeholder="{{$ctrl.destinationType}} name"/>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Destination type</label>
+
+    <div class="col-sm-10">
+      <label class="checkbox">
+        <input type="radio" ng-model="$ctrl.destinationType" value="Queue"> Queue
+      </label>
+      <label class="checkbox">
+        <input type="radio" ng-model="$ctrl.destinationType" value="Topic"> Topic
+      </label>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button type="submit" class="btn btn-primary"
+              ng-click="$ctrl.validateAndCreateDestination($ctrl.destinationName, $ctrl.destinationType)"
+              ng-disabled="!$ctrl.destinationName">Create {{$ctrl.destinationType}}
+      </button>
+    </div>
+  </div>
+
+  <div hawtio-confirm-dialog="$ctrl.createDialog"
+        ok-button-text="Create"
+        cancel-button-text="Cancel"
+        on-ok="$ctrl.createDestination($ctrl.destinationName, $ctrl.destinationType)">
+    <div class="dialog-body">
+      <p>{{$ctrl.destinationType}} name <b>{{$ctrl.destinationName}}</b> contains unrecommended characters: <code>:</code></p>
+      <p>This may cause unexpected problems. Are you really sure to create this {{$ctrl.uncapitalisedDestinationType()}}?</p>
+    </div>
+  </div>
+
+</form>

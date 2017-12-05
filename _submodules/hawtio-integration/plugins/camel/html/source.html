@@ -1,0 +1,16 @@
+<div class="table-view" ng-controller="Camel.SourceController">
+  
+  <h2>Source</h2>
+  
+  <form>
+    <div class="form-group">
+      <div hawtio-editor="source" mode="'xml'" read-only="!showUpdateButton"></div>
+    </div>
+  </form>
+  
+  <button class="btn btn-primary" hawtio-show object-name="{{camelContextMBean}}"
+          method-name="addOrUpdateRoutesFromXml" ng-click="saveRouteXml()" ng-if="showUpdateButton">
+    Update
+  </button>
+
+</div>

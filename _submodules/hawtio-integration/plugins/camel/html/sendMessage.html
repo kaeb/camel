@@ -1,0 +1,71 @@
+<div ng-controller="Camel.SendMessageController">
+
+  <h2>Send Message</h2>
+
+  <div class="alert alert-warning" ng-show="noCredentials">
+    <span class="pficon pficon-warning-triangle-o"></span>
+    <strong>No credentials set for endpoint!</strong>
+    Please set your username and password in the
+    <a href="#" class="alert-link" ng-click="openPrefs()">Preferences</a> page.
+  </div>
+
+  <h3>Headers</h3>
+
+  <div class="row camel-message-headers" ng-if="headers.length > 0">
+    <div class="col-sm-5">
+      <form>
+        <div class="form-group">
+          <label>Name</label>
+          <input type="text" class="form-control" ng-model="header.name" ng-repeat="header in headers"
+                 uib-typeahead="completion for completion in defaultHeaderNames() | filter:$viewValue"
+                 pf-focused="$last">
+        </div>
+      </form>
+    </div>
+    <div class="col-sm-5">
+      <form>
+        <div class="form-group">
+          <label>Value</label>
+          <input type="text" class="form-control" ng-model="header.value" ng-repeat="header in headers">
+        </div>
+      </form>
+    </div>
+    <div class="col-sm-2">
+      <form>
+        <div class="form-group">
+          <label>&nbsp;</label>
+          <button type="button" class="btn btn-default" title="Delete" ng-click="removeHeader(header)"
+                  ng-repeat="header in headers">
+            <span class="pficon pficon-delete"></span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div>
+    <a href="" ng-click="addHeader()">Add header</a>
+  </div>
+
+  <h3>Body</h3>
+
+  <form>
+    <div class="form-group">
+      <div hawtio-editor="message" mode="codeMirrorOptions.mode.name"></div>
+    </div>
+    <div class="form-group">
+      <select class="form-control camel-send-message-format" ng-model="codeMirrorOptions.mode.name">
+        <option value="javascript">JSON</option>
+        <option value="xml">XML</option>
+      </select>
+      <button class="btn btn-default" ng-click="formatMessage()"
+              title="Automatically pretty prints the message so its easier to read">Format
+      </button>
+    </div>
+  </form>
+
+  <p>
+    <button type="button" class="btn btn-primary camel-send-message-button" ng-click="sendMessage()">Send message</button>
+  </p>
+
+</div>

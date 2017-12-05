@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>io.toolisticon.maven</groupId>
+    <artifactId>maven-oss-parent</artifactId>
+    <version>0.4</version>
+    <relativePath />
+  </parent>
+
+  <name>camel-spring-boot-testutils-parent</name>
+  <groupId>io.toolisticon.camel</groupId>
+  <artifactId>camel-spring-boot-testutils-parent</artifactId>
+  <version>0.0.3-SNAPSHOT</version>
+  <packaging>pom</packaging>
+
+  <modules>
+    <module>rule</module>
+    <module>examples/simple</module>    
+  </modules>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+    <spring-boot.version>1.5.8.RELEASE</spring-boot.version>
+    <camel.version>2.20.1</camel.version>
+
+    <maven-compiler-plugin.version>3.7.0</maven-compiler-plugin.version>
+    <maven-surefire-plugin.version>2.18.1</maven-surefire-plugin.version>
+
+    <lombok.version>1.16.18</lombok.version>
+    <assertj.version>3.8.0</assertj.version>
+
+    <project.github.coordinates>toolisticon/camel-spring-boot-testutils</project.github.coordinates>
+  </properties>
+
+  <scm>
+    <connection>scm:git:git@github.com:${project.github.coordinates}.git</connection>
+    <developerConnection>scm:git:git@github.com:${project.github.coordinates}.git</developerConnection>
+    <url>git@github.com:/${project.github.coordinates}.git</url>
+    <tag>HEAD</tag>
+  </scm>
+
+  <dependencyManagement>
+    <dependencies>
+      <!-- Spring Boot on parent level -->
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-dependencies</artifactId>
+        <version>${spring-boot.version}</version>
+        <scope>import</scope>
+        <type>pom</type>
+      </dependency>
+      <!-- Camel BOM -->
+      <dependency>
+        <groupId>org.apache.camel</groupId>
+        <artifactId>camel-spring-boot-dependencies</artifactId>
+        <version>${camel.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+</project>

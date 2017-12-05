@@ -1,0 +1,38 @@
+@import (reference) "../../global.less";
+
+div.camel-properties {
+  height: calc(100% - 20px);
+  width: 100%;
+}
+
+.camel-properties-header {
+  h3 {
+    display: inline-block;
+    margin-right: 50px;
+    img {
+      margin-right: 5px;
+    }
+    span {
+      vertical-align: sub;
+    }
+  }
+  em {
+    vertical-align: sub;
+  }
+}
+
+.camel-properties-info-circle {
+  color: @color-pf-black-500;
+  position: relative;
+  left: -17px;
+  float: left;
+  line-height: inherit;
+}
+
+.camel-properties-value {
+  word-break: break-all;
+}
+
+.camel-properties-empty-space-for-tooltip {
+  margin-bottom: 100px;
+}

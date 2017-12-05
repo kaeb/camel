@@ -1,0 +1,38 @@
+# Compiled class file
+*.class
+
+# created by "mvn eclipse:eclipse"
+.project
+.buildpath
+.classpath
+.springBeans
+
+# Log file
+*.log
+
+# folders
+bin/**
+/build/
+target/
+tmp/**
+tmp/**/*
+webapp/WEB-INF/classes/
+work
+.settings/
+.mvn/*
+mvnw
+mvnw.cmd
+
+# temp file
+*.tmp
+*.bak
+*.swp
+*~.nib
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+# MAC OS tmp
+.DS_Store
