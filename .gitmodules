@@ -1,0 +1,27 @@
+[submodule "camelinaction2"]
+	path = camelinaction2
+	url = https://github.com/camelinaction/camelinaction2.git
+[submodule "camel-cookbook-examples"]
+	path = camel-cookbook-examples
+	url = https://github.com/CamelCookbook/camel-cookbook-examples.git
+[submodule "camel-extra"]
+	path = camel-extra
+	url = https://github.com/camel-extra/camel-extra.git
+[submodule "camel-idea-plugin"]
+	path = camel-idea-plugin
+	url = https://github.com/camel-idea-plugin/camel-idea-plugin.git
+[submodule "hawtio-integration"]
+	path = hawtio-integration
+	url = https://github.com/hawtio/hawtio-integration.git
+[submodule "camel-spring-boot-testutils"]
+	path = camel-spring-boot-testutils
+	url = https://github.com/toolisticon/camel-spring-boot-testutils.git
+[submodule "activemqcamel"]
+	path = activemqcamel
+	url = https://github.com/axeldlv/activemqcamel.git
+[submodule "camel-example-spring-boot-geocoder"]
+	path = camel-example-spring-boot-geocoder
+	url = https://github.com/jun109/camel-example-spring-boot-geocoder.git
+[submodule "camel-profile-sample"]
+	path = camel-profile-sample
+	url = https://github.com/davsclaus/camel-profile-sample.git
